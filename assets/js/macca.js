@@ -69,10 +69,9 @@ var gameTracker = "no-track";  // initial value for anonymous games
     currentStats.plays += 1;  // increment current count
     if (currentStats.plays == 0){
       round_end = true;
-      currentStats.round += 1;
     }
     if (game.win) { // somebody won.
-      currentStats.winning_moves = currentPlayer.markedSpots.length;
+      currentStats.best_time = game.time;
           if (round_end) {  // end of a round
             if (p.game  >= (GAMES_PER_ROUND/2)){
               p.round += 1;
@@ -81,10 +80,9 @@ var gameTracker = "no-track";  // initial value for anonymous games
               playerStat.rlost += 1;  // update lifetime rounds lost
             }
           }
-          currentStats.roundTracker[players[i].playerName] = p;
           lifetimeStats.total_wins += 1;
           if(game.time <= currentStats.best_time){
-      	currentStats.best_time = game.time;
+      	  currentStats.best_time = game.time;
       }
         }else {
       // somebody done lost
