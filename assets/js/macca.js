@@ -65,31 +65,14 @@ var gameTracker = "no-track";  // initial value for anonymous games
 
   var updateStats = function() {
     var playerStat, p, round_end = false;
-    var winnest="", winns=0; // used later to calculate top-winner
     lifetimeStats.games_played += 1; // increment total games count
     currentStats.plays += 1;  // increment current count
     if (currentStats.plays == 0){
       round_end = true;
       currentStats.round += 1;
     }
-    if (game.win) { // somebody won. It's not a draw game
+    if (game.win) { // somebody won.
       currentStats.winning_moves = currentPlayer.markedSpots.length;
-      // number of spots marked == number of moves made
-      currentStats['player' + player_index + '_wins'] += 1;
-      for (var i = 0; i<2; i++){
-        if (players[i].track){
-          playerStat = lifetimeStats.players[players[i].playerName] || 
-            JSON.parse('{"wins":0, "rwins":0, "lost":0, "rlost":0, "plays":0}');
-          p = currentStats.roundTracker[players[i].playerName] ||
-              JSON.parse('{"game":0, "round": 0}');
-          playerStat.plays += 1;
-          if (i == player_index) {
-            playerStat.wins += 1;
-            p.game += 1;
-          }
-          else {
-            playerStat.lost += 1;
-          }
           if (round_end) {  // end of a round
             if (p.game  >= (GAMES_PER_ROUND/2)){
               p.round += 1;
@@ -99,25 +82,14 @@ var gameTracker = "no-track";  // initial value for anonymous games
             }
           }
           currentStats.roundTracker[players[i].playerName] = p;
-          lifetimeStats.players[players[i].playerName] = playerStat;
-        }
-        
+          lifetimeStats.total_wins += 1;
+          if(game.time <= currentStats.best_time){
+      	currentStats.best_time = game.time;
       }
-    } else {
-      // another draw
-      currentStats.cats_games += 1;
-      currentStats.winning_moves = 0;
-    }
-    for(p in lifetimeStats.players){
-      // each p is a name of a player in lifetimeStats.players
-      if (lifetimeStats.players[p].wins > winns){
-        winnest = p; 
-        winns = lifetimeStats.players[p].wins;
-      }
-    }
-    if (round_end)
-      lifetimeStats.rounds_played += 1;
-    lifetimeStats.top_winner = winnest;
+        }else {
+      // somebody done lost
+      currentStats.lost_games += 1;
+   		 }
     window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(currentStats));
     window.localStorage.setItem(LOCAL_KEY, JSON.stringify(lifetimeStats));
     updateDOM(currentStats, lifetimeStats);
