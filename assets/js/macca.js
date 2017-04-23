@@ -1,10 +1,99 @@
 var SESSION_KEY='ms_stats',
-	LOCALKEY='ms_ls';
+	LOCAL_KEY='ms_ls';
 
 $(document).ready(function() {
   gameOptions.init();
-  game.init(10);
+  game.init(15);
 });
+
+// Scoreboard Magic
+var initSessionStats = function(pre_parse){
+  /*
+  * create a new initialized object to store stats in sessionStorage
+  * the object is initialized as JSON string.
+  * It takes a single argument pre_parse. If ommitted or given a truthy
+  * value, a Javascript object is returned. Otherwise a string is returned.
+  */
+  var f = '{"plays":0, "wins":0, "round": 1,' +
+    '"lost_games": 0, "best_time": 0, "gameTracker":""}';
+  if (pre_parse || pre_parse === undefined)
+    return JSON.parse(f);
+  else
+    return f;
+}; // initSessionStats
+
+var updateDOM = function(cur, life) {
+  /** updateDOM(current, lifetime)
+  this method will update the page elements that show the "scrore board"
+  It takes as input, the current value for the object we put in session storage
+  and the object we put in localstorage.
+  **/
+  var h, i, idname, store, value_fields, fld;
+  if (cur === undefined)
+    cur = JSON.parse(window.sessionStorage.getItem(SESSION_KEY))
+  if (life === undefined)
+    life = JSON.parse(window.localStorage.getItem(LOCAL_KEY))
+  for (h = 0; h<2; h++){
+    idname = (['current-score', 'top-score'])[h];
+    store = ([cur, life])[h];
+    value_fields = document.getElementsByClassName('value');
+    for (i =0; i< value_fields.length; i++) {
+      fld = value_fields[i];
+      if (store && fld.id in store)
+        fld.innerHTML = store[fld.id];
+    }
+  }
+};
+var gameTracker = "no-track";  // initial value for anonymous games
+  var currentStats = window.sessionStorage.getItem(SESSION_KEY) || initSessionStats(false);
+  currentStats = JSON.parse(currentStats);
+  currentStats['game_started'] = new Date();
+  if (!currentStats.roundTracker)
+    currentStats.roundTracker = {};
+    gameTracker = "plyr";
+  if (currentStats.gameTracker && currentStats.gameTracker != gameTracker) {
+    // not the same two people playing or continued anonymous
+    currentStats = Object.assign({}, currentStats, initSessionStats(true));
+  }
+  currentStats.gameTracker = gameTracker;
+
+  var lifetimeStats = window.localStorage.getItem(LOCAL_KEY) || 
+      '{"games_played": 0, "total_wins":0, "lifetime_best":0}';
+  lifetimeStats = JSON.parse(lifetimeStats);
+
+  updateDOM(currentStats, lifetimeStats);
+
+  var updateStats = function() {
+    var playerStat, p, round_end = false;
+    lifetimeStats.games_played += 1; // increment total games count
+    currentStats.plays += 1;  // increment current count
+    if (currentStats.plays == 0){
+      round_end = true;
+    }
+    if (game.win) { // somebody won.
+      currentStats.best_time = game.time;
+          if (round_end) {  // end of a round
+            if (p.game  >= (GAMES_PER_ROUND/2)){
+              p.round += 1;
+              playerStat.rwins += 1;  // update lifetime rounds won
+            } else {
+              playerStat.rlost += 1;  // update lifetime rounds lost
+            }
+          }
+          lifetimeStats.total_wins += 1;
+          if(game.time <= currentStats.best_time){
+      	  currentStats.best_time = game.time;
+      }
+        }else {
+      // somebody done lost
+      currentStats.lost_games += 1;
+   		 }
+    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(currentStats));
+    window.localStorage.setItem(LOCAL_KEY, JSON.stringify(lifetimeStats));
+    updateDOM(currentStats, lifetimeStats);
+
+  };
+// End of incantation
 
 var board = {
   board: [],
@@ -159,7 +248,7 @@ var board = {
       e.preventDefault();
     }, false);
   },
-};
+}; //end board
 
 var game = {
   lose: false,
@@ -177,6 +266,7 @@ var game = {
     game.clickSquare();
     clearInterval(game.timer);
     game.startTimer();
+
   },
   pageText: function() {
     $(".flag-count").text(board.flags);
@@ -211,7 +301,7 @@ var game = {
     });
   },
   checkLoss: function() {
-    if ($(".mine").length > 0) game.lose = true;
+    if ($(".mine").length > 0) {game.lose = true; updateStats();}
   },
   checkWin: function() {
     var win = true;
@@ -222,7 +312,9 @@ var game = {
         return false;
       }
     });
-    if (win) game.win = true;
+    if (win) {game.win = true; 
+    	updateStats();
+    }
   },
   gameoverScreen: function() {
     if (game.win) {
@@ -251,7 +343,7 @@ var game = {
       game.startTimer();
     }, 1000);
   },
-};
+}; //end game
 
 var gameOptions = {
   init: function() {
@@ -304,4 +396,4 @@ var gameOptions = {
       game.init(game.size);
     });
   },
-};
+}; //end game options
