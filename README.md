@@ -1,2 +1,2 @@
 # maccasweeper
-A minesweeper knock-off. 
+A real Jamaican minesweeper bootleg.
