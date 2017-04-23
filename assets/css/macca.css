@@ -82,13 +82,13 @@ small {
 }
 
 .flagged {
-  background-image: url("../images/flag.png");
+  background-image: url("../assets/img/flag.png");
   background-position: center;
   background-size: cover;
 }
 
 .mine {
-  background-image: url("../images/mine.png");
+  background-image: url("../assets/img/macca.png");
   background-position: center;
   background-size: cover;
 }
@@ -265,30 +265,15 @@ h5 { font-size: .83em; }
 h6 { font-size: .75em; }
 
 #bill-board { font-size: 1.15em; }
-.xname { color: #f00; }
-.xname.active { background-color: #f00; color: #fff; }
-#vs { color: #999; font-size: 1.4em; flex: 1 1 20%; }
-.oname { color: #000; }
-.oname.active { background-color: #000; color: #fff; }
-
+p#plays,#wins,#lost_games,#best_time,#games_played,#total_wins,#lifetime_best{
+	color:white;
+}
 #game-results {
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 10px;
 }
 
-.player-name {
-  flex: 1 1 35%;
-  font-size: 1.15em;
-  line-height: 1.2;
-  border-radius: 1.2em;
-  border: 1px solid;
-  padding: 2px 4px;
-}
-
-.player-name.active {
-  font-weight: bold;
-}
 /* hider class */
 .hidden {
   display: none !important;
@@ -311,7 +296,7 @@ h6 { font-size: .75em; }
   padding: 4px;
   flex: 0 1 15%;
   margin: 5px;
-  border: 1px solid #999;
+  border: 3px solid #eee;
   border-radius: 4px;
 }
 .scorecard * { line-height: 90%; }
@@ -326,17 +311,6 @@ h6 { font-size: .75em; }
   text-align: center;
   font-weight: bold;
   margin-top: 0;
-}
-
-.scorecard .value.long {
-  font-size: 1.5em;
-  line-height: 2;
-}
-
-#all-players {
-  overflow-y: scroll;
-  padding: 5px 15px;
-  background-color: rgba(200, 200, 200, 0.8);
 }
 
 .player-standings {
