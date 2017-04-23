@@ -1,8 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="assets/css/macca.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>MaccaSweeper – A minesweeper story</title>
+
+<title>MaccaSweeper - A minesweeper story</title>
 </head>
-<body></body>
-</html>
+  <body>
+    <header>
+      <h1>MaccaSweeper</h1>
+    </header>
+    <div class="game-options-wrapper">
+      <div class="game-option board-size-wrapper">
+        <button class="game-options-btn" id="board-size-btn">Board size</button>
+        <div class="board-size-dropdown">
+          <div class="board-size-type">Tiny</div>
+          <div class="board-size-type current-board-size">Small</div>
+          <div class="board-size-type">Medium</div>
+          <div class="board-size-type">Large</div>
+          <div class="board-size-type">Enormous</div>
+        </div>
+      </div>
+      <div class="game-option new-game-wrapper">
+        <button class="game-options-btn" id="new-game-btn">New game</button>
+      </div>
+    </div>
+    <div class="game-info-wrapper">
+      <div class="flag-count-wrapper">
+        <span>Mines:</span>
+        <span class="flag-count"></span>
+      </div>
+      <div class="timer-wrapper">
+        <span>Time:</span>
+        <span class="time"></span>
+      </div>
+    </div>
+    <div class="board-wrapper">
+      <div class="board-container">
+      </div>
+    </div>
+    <div class="gameover-container">
+      <div class="gameover-text"><h2></h2></div>
+      <div class="play-again">
+        <button id="play-again-btn">
+          Play again?
+        </button>
+      </div>
+    </div>
+    <div id="current-score" class="scoreboard">
+      <h3>Current Scoreboard</h3>
+      <div class="scorecard">
+        <label for="plays">Games Played</label>
+        <p id="plays" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="wins">Games Won</label>
+        <p id="wins" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="lost_games">Games Lost</label>
+        <p id="lost_games" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="best_time">Best Time</label>
+        <p id="best_time" class="value">0</p>
+      </div>
+    </div>
+    <p>
+    <a href="#" onclick="document.getElementById('top-score').classList.toggle('hidden'); return false;">Lifetime Stats</a>,
+    <a href="#" onclick="toggleStandings(); return false;">Standings</a></p>
+    <div id="top-score" class="hidden">
+      <div class="scoreboard">
+        <h3>Lifetime Scoreboard</h3>
+        <div class="scorecard">
+          <label for="games_played">Total Games</label>
+          <p id="games_played" class="value">0</p>
+        </div>
+        <div class="scorecard">
+          <label for="total_wins">Total Wins</label>
+          <p id="total_wins" class="value long"></p>
+        </div>
+        <div class="scorecard">
+          <label for="lifetime_best">Best Time</label>
+          <p id="lifetime_best" class="value">0</p>
+        </div>
+      </div>
+     </div>
+    <footer>
+      <small>&copy Sheldon Evans 2017</small>
+    </footer>
+  </body>

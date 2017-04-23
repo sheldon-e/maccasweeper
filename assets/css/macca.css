@@ -1,1 +1,384 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/*Start*/
+/* Layout and Positioning */
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  text-align: center;
+}
+
+header {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+footer {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+
+
+/* Font, Color, Styling */
+
+body {
+  background: #51617c;
+  background: -o-linear-gradient(#51737c, #51617c, #51517c);
+  background: -moz-linear-gradient(#51737c, #51617c, #51517c);
+  background: -webkit-linear-gradient(#51737c, #51617c, #51517c);
+  background: linear-gradient(#51737c, #51617c, #51517c);
+  color: #e8e8e8;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+h1 {
+  text-shadow: 3px 3px #000;
+  font-size: 70px;
+}
+
+h2 {
+  text-shadow: 2px 2px #000;
+  font-size: 40px;
+}
+
+p {
+  color: #000;
+}
+
+small {
+  font-size: 10px;
+}
+
+.revealed {
+  background: #cccccc;
+}
+
+.flagged {
+  background-image: url("../images/flag.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.mine {
+  background-image: url("../images/mine.png");
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+/* Buttons and Links */
+
+button {
+  padding: 10px;
+  border: 0;
+  box-shadow: 2px 2px 2px #000;
+  vertical-align: middle;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 20px;
+  outline: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #fff;
+}
+
+button:active, button:focus {
+  outline: none;
+}
+
+
+
+/* Game Options */
+
+.game-options-wrapper {
+  margin-bottom: 20px;
+}
+
+.game-option {
+  display: inline-block;
+}
+
+.game-option:first-child {
+  margin-right: 50px;
+}
+
+
+
+/* Game Info */
+
+.game-info-wrapper {
+  margin-bottom: 10px;
+}
+
+.game-info-wrapper > * {
+  display: inline-block;
+  width: 70px;
+  text-align: left;
+}
+
+.timer-wrapper {
+  margin-left: 25px;
+}
+
+.time {
+  float: right;
+}
+
+
+
+
+/* Board Size Dropdown Menu */
+
+.board-size-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.board-size-dropdown {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  min-width: 160px;
+  background: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.board-size-dropdown div {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+  color: #000;
+}
+
+.board-size-dropdown div:hover {
+  background: #e8e8e8;
+}
+
+.show-dropdown {
+  display: block;
+}
+
+.current-board-size {
+  background: #e8e8e8;
+}
+
+
+
+/* Board */
+
+.board-wrapper {
+  width: 100%;
+}
+
+.board-container {
+  display: inline-block;
+  padding: 8px;
+  border: 8px solid black;
+  background: #fff;
+  box-shadow: 4px 4px 4px #000;
+}
+
+.board {
+  margin: 0 auto;
+  background: #e8e8e8;
+}
+
+.board td {
+  min-width: 30px;
+  min-height: 30px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #000;
+  line-height: 28px;
+}
+
+.board p {
+  display: none;
+}
+
+
+
+/* Gameover Screen */
+
+.gameover-container {
+  margin-top: 30px;
+}
+
+.gameover-text {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.play-again {
+  height: 55px;
+}
+
+#play-again-btn {
+  display: none;
+}
+/*END*/
+
+
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+  line-height: 1.25;
+  margin: 0 0 0.75em;
+}
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1.12em; }
+h5 { font-size: .83em; }
+h6 { font-size: .75em; }
+
+#bill-board { font-size: 1.15em; }
+.xname { color: #f00; }
+.xname.active { background-color: #f00; color: #fff; }
+#vs { color: #999; font-size: 1.4em; flex: 1 1 20%; }
+.oname { color: #000; }
+.oname.active { background-color: #000; color: #fff; }
+
+#game-results {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.player-name {
+  flex: 1 1 35%;
+  font-size: 1.15em;
+  line-height: 1.2;
+  border-radius: 1.2em;
+  border: 1px solid;
+  padding: 2px 4px;
+}
+
+.player-name.active {
+  font-weight: bold;
+}
+/* hider class */
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.scoreboard {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.scoreboard h3 {
+  flex: 0 0 100%;
+  margin: 0 auto 4px;
+}
+
+.scorecard {
+  padding: 4px;
+  flex: 0 1 15%;
+  margin: 5px;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+.scorecard * { line-height: 90%; }
+.scorecard label {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  display: block; 
+  margin: 2px 0 0;
+}
+.scorecard .value {
+  font-size: 3em;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.scorecard .value.long {
+  font-size: 1.5em;
+  line-height: 2;
+}
+
+#all-players {
+  overflow-y: scroll;
+  padding: 5px 15px;
+  background-color: rgba(200, 200, 200, 0.8);
+}
+
+.player-standings {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #999;
+}
+.player-standings tr th {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.7em;
+  padding: 2px 4px;
+}
+.player-standings tr th, .player-standings tr td {
+  vertical-align: middle;
+}
+.player-standings tr:nth-child(2) th:nth-child(1) {
+  text-align: left;
+  font-size: 1em;
+}
+.player-standings th.title {
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 125%;
+  padding: 4px;
+}
+.player-standings tr td, .player-standings tr:nth-child(2) th {
+  border: 1px solid #999;
+  width: 14%;
+}
+.player-standings tr td:nth-child(1), .player-standings tr:nth-child(2) th:nth-child(1) {
+  width: 40%;
+}
+.player-standings tr td {
+  text-align: right;
+  padding: 2px 4px;
+}
+.player-standings tr td:nth-child(1) {
+  text-align: left;
+}
+
+#all-players button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  font-size: 0.8em;
+}
