@@ -81,13 +81,13 @@ small {
 }
 
 .flagged {
-  background-image: url("../assets/img/flag.png");
+  background-image: url(".././img/flag.png");
   background-position: center;
   background-size: cover;
 }
 
 .mine {
-  background-image: url("../assets/img/macca.png");
+  background-image: url(".././img/macca.png");
   background-position: center;
   background-size: cover;
 }

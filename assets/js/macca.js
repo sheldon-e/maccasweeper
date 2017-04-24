@@ -44,7 +44,7 @@ var updateDOM = function(cur, life) {
     }
   }
 };
-var gameTracker = "no-track";  // initial value for anonymous games
+var gameTracker = "no-track";  // initial value 
   var currentStats = window.sessionStorage.getItem(SESSION_KEY) || initSessionStats(false);
   currentStats = JSON.parse(currentStats);
   currentStats['game_started'] = new Date();
@@ -52,7 +52,7 @@ var gameTracker = "no-track";  // initial value for anonymous games
     currentStats.roundTracker = {};
     gameTracker = "plyr";
   if (currentStats.gameTracker && currentStats.gameTracker != gameTracker) {
-    // not the same two people playing or continued anonymous
+    
     currentStats = Object.assign({}, currentStats, initSessionStats(true));
   }
   currentStats.gameTracker = gameTracker;
@@ -72,18 +72,14 @@ var gameTracker = "no-track";  // initial value for anonymous games
     }
     if (game.win) { // somebody won.
       currentStats.best_time = game.time;
-          if (round_end) {  // end of a round
-            if (p.game  >= (GAMES_PER_ROUND/2)){
-              p.round += 1;
-              playerStat.rwins += 1;  // update lifetime rounds won
-            } else {
-              playerStat.rlost += 1;  // update lifetime rounds lost
-            }
+      currentStats.wins +=1;
+      lifetimeStats.total_wins += 1;
+      if(game.time <= currentStats.best_time){
+      	 currentStats.best_time = game.time;
+         if(game.time <=lifetimeStats.lifetime_best){
+          lifetimeStats.lifetime_best = game.time;
+         }
           }
-          lifetimeStats.total_wins += 1;
-          if(game.time <= currentStats.best_time){
-      	  currentStats.best_time = game.time;
-      }
         }else {
       // somebody done lost
       currentStats.lost_games += 1;
@@ -94,15 +90,13 @@ var gameTracker = "no-track";  // initial value for anonymous games
 
   };
 
-  var revealMines = function() {
-      for (var i = 0 ; i<board.size ; i++){
-      for (var j = 0 ; j<board.size ; j++){
-        if (this.board[i][j].isMine && this.board[i][j].state == 1)
-          this.board[i][j].isMine();
-        // else if (!this.board[i][j].isMine && this.board[i][j].state == 3)
-        //   this.board[i][j].updateCell(IMAGE.minemisflagged);
-      }
-    }
+  var revealMines = function() {     
+          $(".board-square").each(function() {
+          if (($(this).text() == "M")) {
+          $(this).addClass("mine");
+          $(this).addClass("revealed");
+        }
+      })
   };
 // End of incantation
 
@@ -312,7 +306,8 @@ var game = {
     });
   },
   checkLoss: function() {
-    if ($(".mine").length > 0) {game.lose = true; 
+    if ($(".mine").length > 0) {
+      game.lose = true; 
       revealMines();
       updateStats();
     }
