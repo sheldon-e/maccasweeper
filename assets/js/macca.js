@@ -92,10 +92,19 @@ var gameTracker = "no-track";  // initial value
 
   var revealMines = function() {     
           $(".board-square").each(function() {
+
+        if(!$(this).hasClass("flagged")){    
           if (($(this).text() == "M")) {
-          $(this).addClass("mine");
-          $(this).addClass("revealed");
-        }
+              $(this).addClass("mine");
+              $(this).addClass("revealed");
+            }
+          }else{
+            $(this).removeClass("mine");
+          }
+
+          if($(this).text() != "M"){
+                $(this).removeClass("flagged");
+            }
       })
   };
 // End of incantation
@@ -177,6 +186,7 @@ var board = {
     } else if (value === 0) {
       $square.find("p").text("").show();
       $square.addClass("revealed");
+      $square.removeClass("flagged");
       board.getSurroundingSquareCoords(row, col).forEach(function(coordinates) {
         board.showHint(coordinates[0], coordinates[1]);
       });
