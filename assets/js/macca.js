@@ -93,6 +93,17 @@ var gameTracker = "no-track";  // initial value for anonymous games
     updateDOM(currentStats, lifetimeStats);
 
   };
+
+  var revealMines = function() {
+      for (var i = 0 ; i<board.size ; i++){
+      for (var j = 0 ; j<board.size ; j++){
+        if (this.board[i][j].isMine && this.board[i][j].state == 1)
+          this.board[i][j].isMine();
+        // else if (!this.board[i][j].isMine && this.board[i][j].state == 3)
+        //   this.board[i][j].updateCell(IMAGE.minemisflagged);
+      }
+    }
+  };
 // End of incantation
 
 var board = {
@@ -301,7 +312,10 @@ var game = {
     });
   },
   checkLoss: function() {
-    if ($(".mine").length > 0) {game.lose = true; updateStats();}
+    if ($(".mine").length > 0) {game.lose = true; 
+      revealMines();
+      updateStats();
+    }
   },
   checkWin: function() {
     var win = true;
