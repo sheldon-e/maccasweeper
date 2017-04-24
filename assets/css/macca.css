@@ -50,11 +50,17 @@ footer {
 /* Font, Color, Styling */
 
 body {
-  background: #51617c;
+  /*background: #51617c;
   background: -o-linear-gradient(#51737c, #51617c, #51517c);
   background: -moz-linear-gradient(#51737c, #51617c, #51517c);
   background: -webkit-linear-gradient(#51737c, #51617c, #51517c);
-  background: linear-gradient(#51737c, #51617c, #51517c);
+  background: linear-gradient(#51737c, #51617c, #51517c);*/
+  background:linear-gradient(230deg,#a24bcf,#4b79cf,#4bc5cf);
+  background-size:300% 300%;
+  -webkit-animation:MoveBG 60s ease infinite;
+  -moz-animation:MoveBG 60s ease infinite;
+  -o-animation:MoveBG 60s ease infinite;
+  animation:MoveBG 60s ease infinite;
   color: #e8e8e8;
   font-family: 'Fjalla One', sans-serif;
 }
@@ -354,4 +360,28 @@ p#plays,#wins,#lost_games,#best_time,#games_played,#total_wins,#lifetime_best{
   right: 0;
   padding: 0;
   font-size: 0.8em;
+}
+
+/* Keyframes for animations */
+
+@-webkit-keyframes MoveBG {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 16%}
+    100%{background-position:0% 84%}
+}
+
+@-moz-keyframes MoveBG {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 16%}
+    100%{background-position:0% 84%}
+}
+@-o-keyframes MoveBG {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 16%}
+    100%{background-position:0% 84%}
+}
+@keyframes MoveBG { 
+    0%{background-position:0% 84%}
+    50%{background-position:100% 16%}
+    100%{background-position:0% 84%}
 }
