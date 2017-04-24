@@ -96,6 +96,7 @@ small {
   background-image: url(".././img/macca.png");
   background-position: center;
   background-size: cover;
+  /*background: red;*/
 }
 
 
@@ -146,12 +147,12 @@ button:active, button:focus {
 
 .game-info-wrapper > * {
   display: inline-block;
-  width: 70px;
+  width: 100px;
   text-align: left;
 }
 
 .timer-wrapper {
-  margin-left: 25px;
+  margin-left: 50px;
 }
 
 .time {

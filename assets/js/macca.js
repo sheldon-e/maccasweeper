@@ -244,8 +244,8 @@ var board = {
       $square.removeClass("flagged");
       board.flags += 1;
     } else {
-      if (!$square.hasClass("revealed")) $square.addClass("flagged");
-      board.flags -= 1;
+      if (!$square.hasClass("revealed")){ $square.addClass("flagged");
+      board.flags -= 1;}
     }
   },
   preventRightClickMenu: function() {
