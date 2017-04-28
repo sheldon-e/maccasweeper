@@ -7,7 +7,6 @@ $(document).ready(function() {
   if (isMobile.any()) alert('Device NOT currently supported\nFor best experience play with a mouse or on a PC.\nFor updates, follow code on: \nhttps://github.com/sheldon-e/maccasweeper');
 });
 
-// Scoreboard Magic
 var initSessionStats = function(pre_parse) {
   /*
    * create a new initialized object to store stats in sessionStorage
@@ -16,12 +15,13 @@ var initSessionStats = function(pre_parse) {
    * value, a Javascript object is returned. Otherwise a string is returned.
    */
   var f = '{"plays":0, "wins":0, "round": 1,' +
-    '"lost_games": 0, "best_time": 0, "gameTracker":""}';
+    '"lost_games": 0, "best_time":0, "gameTracker":""}';
   if (pre_parse || pre_parse === undefined)
     return JSON.parse(f);
   else
     return f;
 }; // initSessionStats
+
 
 var updateDOM = function(cur, life) {
   /** updateDOM(current, lifetime)
@@ -45,7 +45,10 @@ var updateDOM = function(cur, life) {
     }
   }
 };
-var gameTracker = "no-track"; // initial value 
+
+
+// The following section sets up initial values for each game session
+var gameTracker = "no-track";
 var currentStats = window.sessionStorage.getItem(SESSION_KEY) || initSessionStats(false);
 currentStats = JSON.parse(currentStats);
 currentStats['game_started'] = new Date();
@@ -64,7 +67,11 @@ lifetimeStats = JSON.parse(lifetimeStats);
 
 updateDOM(currentStats, lifetimeStats);
 
+
 var updateStats = function() {
+  // This method updates the DOM of the game. It gets the number of games played
+  // The number of games won, the number of games lost as well as the best time and saves
+  // them in SESSION and LOCAL
   var playerStat, p, round_end = false;
   lifetimeStats.games_played += 1; // increment total games count
   currentStats.plays += 1; // increment current count
@@ -74,24 +81,24 @@ var updateStats = function() {
   if (game.win) { // somebody won.
     currentStats.best_time = game.time;
     currentStats.wins += 1;
-    lifetimeStats.total_wins += 1;
-    if (game.time <= currentStats.best_time) {
+    if (game.time <= currentStats.best_time || currentStats.best_time == 0) {
       currentStats.best_time = game.time;
-      if (game.time <= lifetimeStats.lifetime_best) {
-        lifetimeStats.lifetime_best = game.time;
+      if (currentStats.best_time <= lifetimeStats.lifetime_best || lifetimeStats.lifetime_best == 0) {
+        lifetimeStats.lifetime_best = currentStats.best_time;
       }
     }
   } else {
     // somebody done lost
-    currentStats.lost_games += 1;
-  }
+    currentStats.lost_games += 1;    
+    }
   window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(currentStats));
   window.localStorage.setItem(LOCAL_KEY, JSON.stringify(lifetimeStats));
   updateDOM(currentStats, lifetimeStats);
-
 };
 
 var revealMines = function() {
+  // This method displays all maccas when the game ends it also lets you see which ones you got 
+  // right by not removinf the flags from maccas that you've correctly found. 
   $(".board-square").each(function() {
 
     if (!$(this).hasClass("flagged")) {
@@ -111,6 +118,7 @@ var revealMines = function() {
 
 
 var isMobile = {
+  // This function checks to see whether you are using a mobile device. mainly for compatibility issues
   Android: function() {
     return navigator.userAgent.match(/Android/i);
   },
@@ -132,14 +140,15 @@ var isMobile = {
 };
 
 var toggleHelp = function() {
+  // Shows a modal with instructions 
   alert('Soh yuh wan help?\nThe purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell. ' +
     'Every non-macca cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca,' +
     'you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win!' +
     'To start a new game (abandoning the current one), just click on the new game button.');
   return false;
 };
-// End of incantation
 
+// Setting up the game board
 var board = {
   board: [],
   size: 10,
@@ -147,6 +156,7 @@ var board = {
   mineRatio: 0.2,
   flags: 0,
   init: function(size) {
+    // Initialize game board with all parts
     this.board = [];
     this.size = size;
     $(".board-container").empty();
@@ -159,6 +169,8 @@ var board = {
     this.preventRightClickMenu();
   },
   newBoard: function() {
+    // Create game board based off default setting in document ready function or based on values from board 
+    //size
     for (var i = 0; i < this.size; i++) {
       this.board.push([]);
       for (var j = 0; j < this.size; j++) {
@@ -167,6 +179,7 @@ var board = {
     }
   },
   addMines: function() {
+    //Randomly generates and places maccas all over the board
     for (var i = 0; i < this.mineCount; i++) {
       var randomRow = Math.floor(Math.random() * (this.size));
       var randomCol = Math.floor(Math.random() * (this.size));
@@ -178,6 +191,7 @@ var board = {
     }
   },
   addHints: function() {
+    //places hints around maccas
     for (var i = 0; i < this.size; i++) {
       for (var j = 0; j < this.size; j++) {
         if (this.board[i][j] != "M") {
@@ -191,11 +205,13 @@ var board = {
     }
   },
   isMine: function(row, col) {
+    //checks to see whether the selected box is a macca or not
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
     return this.board[row][col] != "undefined" &&
       this.board[row][col] === "M";
   },
   renderBoard: function() {
+    //this method creates the game board based on the default size or by the selected board size
     $(".board-container").append("<table class='board'></table>");
     for (var i = 0; i < this.size; i++) {
       $(".board").append("<tr class='board-row-" + i + "'></tr>");
@@ -207,6 +223,7 @@ var board = {
     }
   },
   revealSquare: function($square) {
+    // This method reveals the contents beneath the square
     $square.removeClass("flagged");
     var row = $square.data("row");
     var col = $square.data("col");
@@ -227,6 +244,7 @@ var board = {
     }
   },
   quickClear: function($square) {
+    // Clears squares until there is a macca in the 8 squares closest ot it
     var flags = 0;
     var notRevealedOrFlagged = [];
     var surrSquares = board.getSurroundingSquares($square.data("row"),
@@ -248,6 +266,7 @@ var board = {
     }
   },
   getSurroundingSquareCoords: function(row, col) {
+    //Get the coordinates for the surrounding squares 
     return [
       [row - 1, col - 1],
       [row - 1, col],
@@ -263,6 +282,7 @@ var board = {
     });
   },
   getSurroundingSquares: function(row, col) {
+    //Get the square object from the coordinates
     return board.getSurroundingSquareCoords(row, col)
       .map(function(coords) {
         return $(".board-square[data-row='" + coords[0] +
@@ -270,6 +290,7 @@ var board = {
       });
   },
   showHint: function(row, col) {
+    // Show hints int the cleared squares about the surrounding maccas
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
     var $square = $(".board-square[data-row='" + row +
       "'][data-col='" + col + "']");
@@ -283,6 +304,7 @@ var board = {
     }
   },
   addOrRemoveFlag: function($square) {
+    // Add flags (A condition for winning VERY IMPORTANT)
     if ($square.hasClass("flagged")) {
       $square.removeClass("flagged");
       board.flags += 1;
@@ -294,6 +316,7 @@ var board = {
     }
   },
   preventRightClickMenu: function() {
+    //Prevent context menu from popping up when right clicking the game board
     $(".board").on("contextmenu", function(e) {
       e.preventDefault();
     }, false);
@@ -301,6 +324,7 @@ var board = {
 }; //end board
 
 var game = {
+  //Game AI
   lose: false,
   win: false,
   size: 10,
@@ -319,12 +343,14 @@ var game = {
 
   },
   pageText: function() {
+    // Update game text fields
     $(".flag-count").text(board.flags);
     $(".time").text(game.time);
     $(".gameover-text h2").text("");
     $("#play-again-btn").hide();
   },
   clickSquare: function() {
+    // Gets click event and 
     $(".board-square").mousedown(function() {
       var $square = $(this);
       if (!game.lose && !game.win) {
@@ -342,8 +368,6 @@ var game = {
             board.addOrRemoveFlag($square);
             $(".flag-count").text(board.flags);
             game.checkWin();
-
-
             break;
           default:
             return;

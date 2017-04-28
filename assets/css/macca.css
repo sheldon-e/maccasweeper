@@ -222,7 +222,13 @@ button:active, button:focus {
   display: none;
 }
 
-
+.board-square td {
+  -webkit-transition: width 2s; /* Safari */
+  transition: width 2s;
+}
+.board-square td:hover {
+  color:999;
+}
 
 /* Gameover Screen */
 
@@ -306,6 +312,26 @@ p#plays,#wins,#lost_games,#best_time,#games_played,#total_wins,#lifetime_best{
   text-align: center;
   font-weight: bold;
   margin-top: 0;
+}
+
+.f-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.f-container h3 {
+  flex: 0 0 100%;
+  margin: 0 auto 4px;
+}
+
+.f-items {
+  padding: 4px;
+  flex: 0 1 65%;
+  margin: 5px;
+  border: 3px solid #eee;
+  border-radius: 4px;
 }
 
 /* Keyframes for animations */
