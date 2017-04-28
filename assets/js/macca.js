@@ -1,19 +1,20 @@
-var SESSION_KEY='ms_stats',
-	LOCAL_KEY='ms_ls';
+var SESSION_KEY = 'ms_stats',
+  LOCAL_KEY = 'ms_ls';
 
 $(document).ready(function() {
   gameOptions.init();
   game.init(15);
+  if (isMobile.any()) alert('Device NOT currently supported\nFor best experience play with a mouse or on a PC.\nFor updates, follow code on: \nhttps://github.com/sheldon-e/maccasweeper');
 });
 
 // Scoreboard Magic
-var initSessionStats = function(pre_parse){
+var initSessionStats = function(pre_parse) {
   /*
-  * create a new initialized object to store stats in sessionStorage
-  * the object is initialized as JSON string.
-  * It takes a single argument pre_parse. If ommitted or given a truthy
-  * value, a Javascript object is returned. Otherwise a string is returned.
-  */
+   * create a new initialized object to store stats in sessionStorage
+   * the object is initialized as JSON string.
+   * It takes a single argument pre_parse. If ommitted or given a truthy
+   * value, a Javascript object is returned. Otherwise a string is returned.
+   */
   var f = '{"plays":0, "wins":0, "round": 1,' +
     '"lost_games": 0, "best_time": 0, "gameTracker":""}';
   if (pre_parse || pre_parse === undefined)
@@ -33,116 +34,110 @@ var updateDOM = function(cur, life) {
     cur = JSON.parse(window.sessionStorage.getItem(SESSION_KEY))
   if (life === undefined)
     life = JSON.parse(window.localStorage.getItem(LOCAL_KEY))
-  for (h = 0; h<2; h++){
+  for (h = 0; h < 2; h++) {
     idname = (['current-score', 'top-score'])[h];
     store = ([cur, life])[h];
     value_fields = document.getElementsByClassName('value');
-    for (i =0; i< value_fields.length; i++) {
+    for (i = 0; i < value_fields.length; i++) {
       fld = value_fields[i];
       if (store && fld.id in store)
         fld.innerHTML = store[fld.id];
     }
   }
 };
-var gameTracker = "no-track";  // initial value 
-  var currentStats = window.sessionStorage.getItem(SESSION_KEY) || initSessionStats(false);
-  currentStats = JSON.parse(currentStats);
-  currentStats['game_started'] = new Date();
-  if (!currentStats.roundTracker)
-    currentStats.roundTracker = {};
-    gameTracker = "plyr";
-  if (currentStats.gameTracker && currentStats.gameTracker != gameTracker) {
-    
-    currentStats = Object.assign({}, currentStats, initSessionStats(true));
+var gameTracker = "no-track"; // initial value 
+var currentStats = window.sessionStorage.getItem(SESSION_KEY) || initSessionStats(false);
+currentStats = JSON.parse(currentStats);
+currentStats['game_started'] = new Date();
+if (!currentStats.roundTracker)
+  currentStats.roundTracker = {};
+gameTracker = "plyr";
+if (currentStats.gameTracker && currentStats.gameTracker != gameTracker) {
+
+  currentStats = Object.assign({}, currentStats, initSessionStats(true));
+}
+currentStats.gameTracker = gameTracker;
+
+var lifetimeStats = window.localStorage.getItem(LOCAL_KEY) ||
+  '{"games_played": 0, "total_wins":0, "lifetime_best":0}';
+lifetimeStats = JSON.parse(lifetimeStats);
+
+updateDOM(currentStats, lifetimeStats);
+
+var updateStats = function() {
+  var playerStat, p, round_end = false;
+  lifetimeStats.games_played += 1; // increment total games count
+  currentStats.plays += 1; // increment current count
+  if (currentStats.plays == 0) {
+    round_end = true;
   }
-  currentStats.gameTracker = gameTracker;
-
-  var lifetimeStats = window.localStorage.getItem(LOCAL_KEY) || 
-      '{"games_played": 0, "total_wins":0, "lifetime_best":0}';
-  lifetimeStats = JSON.parse(lifetimeStats);
-
+  if (game.win) { // somebody won.
+    currentStats.best_time = game.time;
+    currentStats.wins += 1;
+    lifetimeStats.total_wins += 1;
+    if (game.time <= currentStats.best_time) {
+      currentStats.best_time = game.time;
+      if (game.time <= lifetimeStats.lifetime_best) {
+        lifetimeStats.lifetime_best = game.time;
+      }
+    }
+  } else {
+    // somebody done lost
+    currentStats.lost_games += 1;
+  }
+  window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(currentStats));
+  window.localStorage.setItem(LOCAL_KEY, JSON.stringify(lifetimeStats));
   updateDOM(currentStats, lifetimeStats);
 
-  var updateStats = function() {
-    var playerStat, p, round_end = false;
-    lifetimeStats.games_played += 1; // increment total games count
-    currentStats.plays += 1;  // increment current count
-    if (currentStats.plays == 0){
-      round_end = true;
+};
+
+var revealMines = function() {
+  $(".board-square").each(function() {
+
+    if (!$(this).hasClass("flagged")) {
+      if (($(this).text() == "M")) {
+        $(this).addClass("mine");
+        $(this).addClass("revealed");
+      }
+    } else {
+      $(this).removeClass("mine");
     }
-    if (game.win) { // somebody won.
-      currentStats.best_time = game.time;
-      currentStats.wins +=1;
-      lifetimeStats.total_wins += 1;
-      if(game.time <= currentStats.best_time){
-      	 currentStats.best_time = game.time;
-         if(game.time <=lifetimeStats.lifetime_best){
-          lifetimeStats.lifetime_best = game.time;
-         }
-          }
-        }else {
-      // somebody done lost
-      currentStats.lost_games += 1;
-   		 }
-    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(currentStats));
-    window.localStorage.setItem(LOCAL_KEY, JSON.stringify(lifetimeStats));
-    updateDOM(currentStats, lifetimeStats);
 
-  };
-
-  var revealMines = function() {     
-          $(".board-square").each(function() {
-
-        if(!$(this).hasClass("flagged")){    
-          if (($(this).text() == "M")) {
-              $(this).addClass("mine");
-              $(this).addClass("revealed");
-            }
-          }else{
-            $(this).removeClass("mine");
-          }
-
-          if($(this).text() != "M"){
-                $(this).removeClass("flagged");
-            }
-      })
-  };
-
-
-  //simulate right click with long tap : for touch devices
-  (function() {
-    $.fn.longTap = function(options) {
-        
-        options = $.extend({
-            delay: 1000,
-            onRelease: null
-        }, options);
-        
-        var eventType = {
-            mousedown: 'ontouchstart' in window ? 'touchstart' : 'mousedown',
-            mouseup: 'ontouchend' in window ? 'touchend' : 'mouseup'
-        };
-        
-        return this.each(function() {
-            $(this).on(eventType.mousedown + '.longtap', function() {
-                $(this).data('touchstart', +new Date);
-            })
-            .on(eventType.mouseup + '.longtap', function(e) {
-                var now = +new Date,
-                    than = $(this).data('touchstart');
-                now - than >= options.delay && options.onRelease && options.onRelease.call(this, e);
-            });
-        });
-    };
-})(jQuery);
-
-$('.board-container').longTap({
-    delay: 1000, // really long tap
-    onRelease: function(e) {
-        c($(this).position(), e);
-        //game.clickSquare();
+    if ($(this).text() != "M") {
+      $(this).removeClass("flagged");
     }
-});
+  })
+};
+
+
+var isMobile = {
+  Android: function() {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+
+var toggleHelp = function() {
+  alert('Soh yuh wan help?\nThe purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell. ' +
+    'Every non-macca cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca,' +
+    'you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win!' +
+    'To start a new game (abandoning the current one), just click on the new game button.');
+  return false;
+};
 // End of incantation
 
 var board = {
@@ -198,16 +193,16 @@ var board = {
   isMine: function(row, col) {
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
     return this.board[row][col] != "undefined" &&
-           this.board[row][col] === "M";
+      this.board[row][col] === "M";
   },
   renderBoard: function() {
     $(".board-container").append("<table class='board'></table>");
     for (var i = 0; i < this.size; i++) {
       $(".board").append("<tr class='board-row-" + i + "'></tr>");
       for (var j = 0; j < this.size; j++) {
-        $(".board-row-" + i).append("<td class='board-square' data-row='" + i + 
-                                    "' data-col='" + j + "'><p>" + 
-                                    this.board[i][j] + "</p></td>")
+        $(".board-row-" + i).append("<td class='board-square' data-row='" + i +
+          "' data-col='" + j + "'><p>" +
+          this.board[i][j] + "</p></td>")
       }
     }
   },
@@ -234,48 +229,50 @@ var board = {
   quickClear: function($square) {
     var flags = 0;
     var notRevealedOrFlagged = [];
-    var surrSquares = board.getSurroundingSquares($square.data("row"), 
-                                                  $square.data("col"));
+    var surrSquares = board.getSurroundingSquares($square.data("row"),
+      $square.data("col"));
     surrSquares.forEach(function($surrSquare) {
       if ($surrSquare.hasClass("flagged")) {
         flags += 1;
       }
-      if (!$surrSquare.hasClass("flagged") && 
-          !$surrSquare.hasClass("revealed")) {
+      if (!$surrSquare.hasClass("flagged") &&
+        !$surrSquare.hasClass("revealed")) {
         notRevealedOrFlagged.push($surrSquare);
       }
     });
     if (flags.toString() === $square.text() &&
-        notRevealedOrFlagged.length > 0) {
+      notRevealedOrFlagged.length > 0) {
       notRevealedOrFlagged.forEach(function($squareToReveal) {
         board.revealSquare($squareToReveal);
       });
     }
   },
   getSurroundingSquareCoords: function(row, col) {
-    return [[row - 1, col - 1],
-            [row - 1, col],
-            [row - 1, col + 1],
-            [row, col - 1],
-            [row, col + 1],
-            [row + 1, col - 1],
-            [row + 1, col],
-            [row + 1, col + 1]].filter(function(coordinates) {
-              return coordinates[0] >= 0 && coordinates[0] < board.size &&
-                     coordinates[1] >= 0 && coordinates[1] < board.size;
-            });
+    return [
+      [row - 1, col - 1],
+      [row - 1, col],
+      [row - 1, col + 1],
+      [row, col - 1],
+      [row, col + 1],
+      [row + 1, col - 1],
+      [row + 1, col],
+      [row + 1, col + 1]
+    ].filter(function(coordinates) {
+      return coordinates[0] >= 0 && coordinates[0] < board.size &&
+        coordinates[1] >= 0 && coordinates[1] < board.size;
+    });
   },
   getSurroundingSquares: function(row, col) {
     return board.getSurroundingSquareCoords(row, col)
-                .map(function(coords) {
-                  return $(".board-square[data-row='" + coords[0] + 
-                           "'][data-col='" + coords[1] + "']");
-                });
+      .map(function(coords) {
+        return $(".board-square[data-row='" + coords[0] +
+          "'][data-col='" + coords[1] + "']");
+      });
   },
   showHint: function(row, col) {
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
-    var $square = $(".board-square[data-row='" + row + 
-                    "'][data-col='" + col + "']");
+    var $square = $(".board-square[data-row='" + row +
+      "'][data-col='" + col + "']");
     if ($square.text() != "M" && !$square.hasClass("revealed")) {
       if ($square.text() === "0") {
         board.revealSquare($square);
@@ -290,8 +287,10 @@ var board = {
       $square.removeClass("flagged");
       board.flags += 1;
     } else {
-      if (!$square.hasClass("revealed")){ $square.addClass("flagged");
-      board.flags -= 1;}
+      if (!$square.hasClass("revealed")) {
+        $square.addClass("flagged");
+        board.flags -= 1;
+      }
     }
   },
   preventRightClickMenu: function() {
@@ -343,6 +342,8 @@ var game = {
             board.addOrRemoveFlag($square);
             $(".flag-count").text(board.flags);
             game.checkWin();
+
+
             break;
           default:
             return;
@@ -353,7 +354,7 @@ var game = {
   },
   checkLoss: function() {
     if ($(".mine").length > 0) {
-      game.lose = true; 
+      game.lose = true;
       revealMines();
       updateStats();
     }
@@ -362,13 +363,14 @@ var game = {
     var win = true;
     $(".board-square").each(function() {
       if (($(this).text() != "M" && !$(this).hasClass("revealed")) ||
-         ($(this).text() === "M" && !$(this).hasClass("flagged"))) {
+        ($(this).text() === "M" && !$(this).hasClass("flagged"))) {
         win = false;
         return false;
       }
     });
-    if (win) {game.win = true; 
-    	updateStats();
+    if (win) {
+      game.win = true;
+      updateStats();
     }
   },
   gameoverScreen: function() {
@@ -414,7 +416,7 @@ var gameOptions = {
     $(document).mouseup(function(e) {
       var $dropdown = $(".board-size-dropdown");
       if (!$dropdown.is(e.target) && !$("#board-size-btn").is(e.target) &&
-          $dropdown.has(e.target).length === 0) {
+        $dropdown.has(e.target).length === 0) {
         $dropdown.removeClass("show-dropdown");
       }
     });
@@ -422,7 +424,7 @@ var gameOptions = {
   chooseBoardSize: function() {
     $(".board-size-type").on("click", function() {
       console.log($(this).text());
-      switch($(this).text()) {
+      switch ($(this).text()) {
         case "Tiny":
           game.init(5);
           break;
