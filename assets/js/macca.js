@@ -427,6 +427,8 @@ var game = {
 }; //end game
 
 var gameOptions = {
+  // Method that handles the top buttons and submenu of the. 
+  // 
   init: function() {
     this.boardSizeDropdown();
     this.chooseBoardSize();
