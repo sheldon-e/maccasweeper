@@ -76,20 +76,26 @@ small {
 }
 
 .revealed {
-  background: #cccccc;
+  background: rgb(197, 197, 197);
 }
 
 .flagged {
   background-image: url(".././img/flag.png");
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .mine {
   background-image: url(".././img/macca.png");
   background-position: center;
   background-size: cover;
-  /*background: red;*/
+  background-repeat: no-repeat;
+  background-color: rgba(197, 197, 197, 0);
+  border: 2px solid rgba(197, 197, 197, 0)!important;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
 }
 
 
@@ -216,7 +222,7 @@ button:active, button:focus {
   min-height: 30px;
   width: 30px;
   height: 30px;
-  border: 2px solid #000;
+  border: 2px solid rgb(197, 197, 197);
   line-height: 28px;
 }
 
@@ -356,3 +362,18 @@ p#plays,#wins,#lost_games,#best_time,#games_played,#total_wins,#lifetime_best{
     50%{background-position:100% 16%}
     100%{background-position:0% 84%}
 }
+@-moz-keyframes spin { 
+  100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+  100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+  100% { 
+    -webkit-transform: rotate(360deg); 
+    transform:rotate(360deg); 
+    } 
+  }
+
+
+
