@@ -340,7 +340,7 @@ var game = {
     game.clickSquare();
     clearInterval(game.timer);
     game.startTimer();
-
+    $(".gameover-container").toggleClass("hidden");
   },
   pageText: function() {
     // Update game text fields
@@ -399,10 +399,12 @@ var game = {
   },
   gameoverScreen: function() {
     if (game.win) {
+      $(".gameover-container").toggleClass("hidden");
       $(".gameover-text h2").text("You win!");
       $("#play-again-btn").show();
       game.playAgain();
     } else if (game.lose) {
+      $(".gameover-container").toggleClass("hidden");
       $(".gameover-text h2").text("You lose!");
       $("#play-again-btn").show();
       game.playAgain();
