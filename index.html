@@ -54,31 +54,35 @@
         </div>
     </div>
     <div id="current-score" class="scoreboard">
-        <h3>Current Scoreboard</h3>
-        <div class="scorecard">
-            <label for="plays">Games Played</label>
-            <p id="plays" class="value">0</p>
-        </div>
-        <div class="scorecard">
-            <label for="wins">Games Won</label>
-            <p id="wins" class="value">0</p>
-        </div>
-        <div class="scorecard">
-            <label for="lost_games">Games Lost</label>
-            <p id="lost_games" class="value">0</p>
-        </div>
-        <div class="scorecard">
-            <label for="best_time">Best Time</label>
-            <p id="best_time" class="value">0</p>
-        </div>
+
+      <h3>Current Scoreboard</h3>
+      <div class="scorecard">
+        <label for="plays">Games Played</label>
+        <p id="plays" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="wins">Games Won</label>
+        <p id="wins" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="lost_games">Games Lost</label>
+        <p id="lost_games" class="value">0</p>
+      </div>
+      <div class="scorecard">
+        <label for="best_time">Best Time</label>
+        <p id="best_time" class="value">0</p>
+      </div>
     </div>
     <p>
-        <a href="#" onclick="document.getElementById('top-score').classList.toggle('hidden'); return false;">Lifetime Stats</a> |
-        <a href="#" onclick="toggleHelp(); return false;">How To Play</a> |
-        <a href="about.html" target="_blank">Read Documentation</a></p>
+    <a href="#" onclick="document.getElementById('top-score').classList.toggle('hidden'); return false;">Lifetime Stats</a> | 
+    <a href="#" onclick="toggleHelp(); return false;">How To Play</a> |
+	<a href="#" onclick="toggleJcanHelp(); return false;">The Jamaican Help Guide</a> | 	
+    <a href="about.html" target="_blank">Read Documentation</a> | 
+	<a href="https://github.com/sheldon-e/maccasweeper/archive/master.zip" target="_blank">Download</a> 
+	</p>
     <div id="top-score" class="hidden">
-        <div class="scoreboard">
-            <h3>Lifetime Scoreboard</h3>
+      <div class="scoreboard">
+        <h3>Lifetime Scoreboard</h3>
             <div class="scorecard">
                 <label for="games_played">Total Games</label>
                 <p id="games_played" class="value">0</p>

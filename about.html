@@ -1,27 +1,129 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="assets/css/macca.css">
+		<title>About MaccaSweeper</title>
+	</head>
+	<body>
+		<header>
+			<h1>About MaccaSweeper</h1>
+			<br>
+			<a href="#intro">Introduction |</a> <a href="#howto"> How to Play |</a> <a href="#quick"> Quick Start Guide |</a> <a href="#note"> Things to Note |</a> 
+			<a href="#limit"> Limitations |<a href="#next"> Coming up |</a> <a href="#technical"> Technical Information |</a> <a href="#contact"> Contact Us</a>
+	  
+		</header>
+		<div id='main' class='f-container'>
+			Thank you for choosing to play Maccasweeper. This page should tell you all you need to know about the game and its developers.
+	
+		<div class='f-items'>
+		<a name="intro"> </a>
+			<h2> Introduction</h2>
+				<hr> <h3> Maccasweeper was inspired by the game Minesweeper, made popular by Windows when it began including it in system software packages. The game was designed to
+				feel like the traditional Minesweeper but with room to grow into something much more. It was actually quite difficult so we spent hours looking into how other persons 
+				built theirs; looking for things we liked in their design as well as things we didn't like or want to be a part of the game. Like the traditional Minesweeper, 
+				you play “against” computer generated obstacles, in this case called Macca. 
+				</h3> </hr>
+		</div>
+	
+		<div class='f-items'>
+			<a name="howto"> </a>
+			<h2> How to Play</h2>
+			<hr> <h3>The purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell. 
+			Every non-macca cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca,
+			you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win!
+			To start a new game (abandoning the current one), just click on the new game button.		
+			<br> <br>
+			It is easiest to learn maccasweeper by playing. The difficulty with this game is that your first click is not guaranteed safe, so you just might hit a macca on your first 
+			try. Don’t give up though. Keep trying. 
+			</h3> </hr>
+		</div>
+	
+		<div class='f-items'>
+			<a name="quick"> </a>	
+			<h2>Quick Start Guide</h2>
+			<hr> <h3> There are five board sizes available for play. There are tiny, with 5 maccas and only 25 cells, small, with 20 maccas and 100 cells, medium with 45 maccas and 
+			225 cells, large with 105 maccas and 525 cells and enormous with 245 maccas and 1225 cells. When you begin a game you are presented with a square board of smaller squares called 
+			cells. Some of these squares contain macca, while others don't. At the top you will be told how many maccas to avoid. If you click on a cell with a macca, you lose. 
+			If you flag all the maccas and clear all the cells without clicking any macca you win. Clicking a non-macca cell reveals the number of neighbouring squares with maccas. 
+			This information along with great guess work will help you stay clear of the macca. To open a cell, make sure you are pointing at it and click on it. To flag a cell you 
+			think holds a macca, point and right-click it. 
+			</h3> 
+			<br> <br>
+			
+			<a name="note"> </a>
+			<h2> Things to note: </h2>
+			<h3>
+			<ul>
+				<li> A cell’s "neighbours" are the cells directly above, below, to the left, right, and all 4 diagonals. </li>
+				<li> Cells at the edges of the board or in its corners have fewer than 8 neighbours.</li> 	
+				<li> If you open a cell that doesn’t have any neighbouring bombs, all its non-macca cell neighbours will open automatically. 
+				 Sometimes you are able to clear a large area because of this.</li>
+				<li> In the same way you point and right-click to flag a cell you can right-click again to remove the flag.</li>
+				<li> The first cell you open can be a macca. </li>
+				<li> If you incorrectly flag a cell as having macca, you cannot win until you correct that. Flagging an incorrect cell won't kill you, but may lead to mistakes which do.</li>
+				<li> You have to flag ALL the maccas to win as well as open all non-macca cells. </li>
+			</ul>
+			<br> <br>
+			Status Information:
+			<br>
+			To the upper left of the board, the number of maccas left to be flagged is displayed. The number changes when you flag and unflag cells.
+			<br> 
+			To the upper right of the board is the timer. 
+			</h3> </hr>
+		</div>
+	
+		<div class='f-items'>
+			<a name="limit"> </a>
+			<h2>Limitations</h2>
+			<hr> <h3>
+				As with everything in life, developing this game was not without its challenges. A major challenge of developing this game was learning Javascript and jQuery within 
+				a relatively short period of time. Time constraints further prevented us from making the game compatible with mobile devices that are unable to use a mouse. 
+				Since the game requires that the macca cells be flagged, mobile users will not get the satisfaction of “winning”. They may be able to find all the non-macca cells 
+				but they are not able to “right-click” to flag the maccas.
+				<br> <br>
+				Getting the scoring feature of the game and the lifetime statistics to work correctly posed a challenge. This game has an inherent difficulty, due to the fact that it 
+				requires a bit of guesswork. Needless to say, attempting to win the game to test the counter and the lifetime statistics was a task. However, we are proud to say that 
+				it works and when you do win the counter and your statistics will reflect that. 
+				<br> <br>
+				What would this game be without the macca? Sure they show up when you click on the cell but what about if you lose? Considering that the macca are randomly placed by the 
+				computer and the function that shows the content of the cells is in response to a click on the cell, then when a macca is clicked, only that macca should show. 
+				The function had to be modified for the ‘game over’ screen so that all the macca would be uncovered.
+			</hr> </h3>
+		</div>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="assets/css/macca.css">
-    <title>About MaccaSweeper</title>
-</head>
+		<div class='f-items'>
+			<a name="next"> </a>
+			<h2>Coming Up</h2>
+			<hr> <h3>
+				In the next version of Maccasweeper, you can expect a time challenge feature. You will be able to play against the clock for a more nail-biting finish.
+			</hr> </h3>
+		</div>
+	
+		Now that you know all you need to know, go find some macca. Happy playing!
+		<br> <br>
+		Sincerely,<br>
+		Sheldon & Terrica.
 
-<body>
-    <header>
-        <h1>About MaccaSweeper</h1>
-    </header>
-    <div id='main' class='f-container'>
-        <div class='f-items'>
-            <h2>How to Play</h2>
-            <hr>
-            <h3>The purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell. Every non-macca cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca, you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win! To start a new game (abandoning the current one), just click on the new game button.</h3>
-        </div>
-        <div class='f-items'>
-            <h2>About The Project</h2>
-            <hr>
-            <h3>The game was designed to feel like the traditional minesweeper but with room to grow into something much more. It was actually quite difficult so I spent hours looking into how other persons built theirs. Looking for things I liked in their design as well as things I didn't like or want to be a part of my game. </h3>
-        </div>
-    </div>
-</body>
-
+		<div class='f-items'>
+			<a name="technical"> </a>
+			<h2>For the more technically minded</h2>
+			<hr> <h3>
+			This game was developed using HTML, CSS and the JavaScript library JQuery. The Document Object Model was used quite a bit in this project. 
+			It was used to set and control the timer. The Document Object Model was used to show and hide the lifetime statistics. 
+			It was also used to add the play again button when a game is over and to set the text to inform the user of a win or loss.
+			While the scoreboard only lasts for a session, the lifetime statistics utilize cookies to keep your previous streaks accessible.
+			<br> <br>
+			The game consists of two pages, namely, the about page and the page for gameplay. We made all the assets except for the images of the flag and macca and the use of JQuery. 
+			CSS stylesheets were used to determine the font, layout and style of the pages. A subtle, soothing transition of background colours was used (also in CSS) so players can 
+			remain composed despite the odds. The Javascript file contains the functions that facilitate the actual gameplay and display and recording of statistics. It also populates 
+			the scoreboard at the bottom of the game. The comments in the .js (Javascript) file are clear and explain each function.
+			<br> <br>
+			This game has been tested and should be compatible with the current versions of: Google Chrome, Safari and Mozilla Firefox. It is not yet compatible with mobile devices.
+			It has not found to be compatible with Internet Explorer and Microsoft Edge. Stay tuned for more features and updates.
+			</hr> </h3>
+			<a name="contact"> </a>
+			<small> For added information on this game you may email us at: sheldonevans92@gmail.com. </small>     
+		</div>
+		</div>
+	</body>
 </html>

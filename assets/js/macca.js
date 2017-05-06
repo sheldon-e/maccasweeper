@@ -25,7 +25,7 @@ var initSessionStats = function(pre_parse) {
 
 var updateDOM = function(cur, life) {
   /** updateDOM(current, lifetime)
-  this method will update the page elements that show the "scrore board"
+  this method will update the page elements that show the "score board"
   It takes as input, the current value for the object we put in session storage
   and the object we put in localstorage.
   **/
@@ -98,7 +98,7 @@ var updateStats = function() {
 
 var revealMines = function() {
   // This method displays all maccas when the game ends it also lets you see which ones you got 
-  // right by not removinf the flags from maccas that you've correctly found. 
+  // right by not removing the flags from maccas that you've correctly found. 
   $(".board-square").each(function() {
 
     if (!$(this).hasClass("flagged")) {
@@ -118,7 +118,7 @@ var revealMines = function() {
 
 
 var isMobile = {
-  // This function checks to see whether you are using a mobile device. mainly for compatibility issues
+  // This function checks to see whether you are using a mobile device; mainly for compatibility issues.
   Android: function() {
     return navigator.userAgent.match(/Android/i);
   },
@@ -148,6 +148,25 @@ var toggleHelp = function() {
   return false;
 };
 
+var toggleJcanHelp = function() {
+  // Shows a modal with the Jamaican version of instructions 
+  alert('The short-er Jamaican version\n'+
+'Tanks fi play fi wi game Maccasweeper. Dis is a knockoff fi Minesweeper; only ting it bigga an betta. Yuh play it almoas di same way.'+
+'Yuh play gainst di computa and try no mek makka jook yuh. Awoah!\n\n'+
+//'How fi play:\n'+
+'Yuh put yuh mouse ova di cell weh yuh wan click. If yuh click a macca cell yuh lose. We have some wheelin macca fi yuh look pan when you lose. Yuh ago lose nuff so might as well. '+
+'When you clear out bush, an no click no macca we mek it green-ish. When yuh click pan a cell weh no ha no macca yuh si how much macca deh side a it. '+
+'We mean seh it tell yuh how much cell have macca outta di 8 weh deh round it – di one above, below, to the lef an to di right and di one dem weh deh slant way from it. ' +
+'Di corna wan dem no have 8 cell sida dem neida di wan dem a di side. \n\n' +
+'Di easiess way fi learn Maccasweeper is fi play it. Mek sure yuh can guess good else di fus cell yuh click cud be a macca. Yuh can choose di size board yuh wan fi play pon. '+
+'Di bigga di board di more macca yuh have fi fine. At di top to di leff, yuh can si how much macca yuh fi fine and pan di right yuh si how much time yuh tek fi win. '+
+'Di lass ting yuh need fi know is fi flag di cell dem wid d macca so yuh no tep pan dem, a mean click pan dem. When yuh think a cell have macca yuh haffi right-click pan it. '+
+'Put yuh mouse ova di macca cell an click pan it wid di right mouse button.' +
+
+'\n\nSo now weh yuh a wait pan? Duh road!');
+  return false;
+};
+
 // Setting up the game board
 var board = {
   board: [],
@@ -169,7 +188,7 @@ var board = {
     this.preventRightClickMenu();
   },
   newBoard: function() {
-    // Create game board based off default setting in document ready function or based on values from board 
+    // Create game board based off default settings in document ready function or based on values from board 
     //size
     for (var i = 0; i < this.size; i++) {
       this.board.push([]);
@@ -290,7 +309,7 @@ var board = {
       });
   },
   showHint: function(row, col) {
-    // Show hints int the cleared squares about the surrounding maccas
+    // Show hints in the cleared squares about the surrounding maccas
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
     var $square = $(".board-square[data-row='" + row +
       "'][data-col='" + col + "']");
@@ -351,7 +370,7 @@ var game = {
     $("#play-again-btn").hide();
   },
   clickSquare: function() {
-    // Gets click event and 
+    // Gets click event and ...
     $(".board-square").mousedown(function() {
       var $square = $(this);
       if (!game.lose && !game.win) {
@@ -377,7 +396,7 @@ var game = {
       }
     });
   },
-  checkLoss: function() {
+  checkLoss: function() {//checks if user won
     if ($(".mine").length > 0) {
       game.lose = true;
       revealMines();
@@ -385,7 +404,7 @@ var game = {
       updateStats();
     }
   },
-  checkWin: function() {
+  checkWin: function() {//checks if user lost
     var win = true;
     $(".board-square").each(function() {
       if (($(this).text() != "M" && !$(this).hasClass("revealed")) ||
@@ -394,12 +413,13 @@ var game = {
         return false;
       }
     });
-    if (win) {
+    if (win) {//executes if the user 
       game.win = true;
         game.plays+=1;
       updateStats();
     }
   },
+  //setting the screen when the game has finished
   gameoverScreen: function() {
     if (game.win) {
       $(".gameover-container").toggleClass("hidden");
@@ -415,11 +435,13 @@ var game = {
       game.playAgain();
     }
   },
+  //executes when the playagain button is clicked
   playAgain: function() {
     $("#play-again-btn").on("click", function() {
       game.init(game.size);
     });
   },
+  //function to control the timer
   startTimer: function() {
     game.timer = setTimeout(function() {
       if (!game.win && !game.lose) {
@@ -434,13 +456,14 @@ var game = {
 }; //end game
 
 var gameOptions = {
-  // Method that handles the top buttons and submenu of the. 
+  // Method that handles the top buttons and submenu of the game. 
   // 
   init: function() {
     this.boardSizeDropdown();
     this.chooseBoardSize();
     this.newGame();
   },
+  //executes when the boardsize button is clicked 
   boardSizeDropdown: function() {
     $("#board-size-btn").on("click", function() {
       $(".board-size-dropdown").toggleClass("show-dropdown");
@@ -486,6 +509,7 @@ var gameOptions = {
       $(".board-size-dropdown").removeClass("show-dropdown");
     });
   },
+  //executes when the new game button is clicked
   newGame: function() {
     $("#new-game-btn").on("click", function() {
       game.init(game.size);
