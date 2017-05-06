@@ -25,7 +25,7 @@ var initSessionStats = function(pre_parse) {
 
 var updateDOM = function(cur, life) {
   /** updateDOM(current, lifetime)
-  this method will update the page elements that show the "scrore board"
+  this method will update the page elements that show the "score board"
   It takes as input, the current value for the object we put in session storage
   and the object we put in localstorage.
   **/
@@ -98,7 +98,7 @@ var updateStats = function() {
 
 var revealMines = function() {
   // This method displays all maccas when the game ends it also lets you see which ones you got 
-  // right by not removinf the flags from maccas that you've correctly found. 
+  // right by not removing the flags from maccas that you've correctly found. 
   $(".board-square").each(function() {
 
     if (!$(this).hasClass("flagged")) {
@@ -118,7 +118,7 @@ var revealMines = function() {
 
 
 var isMobile = {
-  // This function checks to see whether you are using a mobile device. mainly for compatibility issues
+  // This function checks to see whether you are using a mobile device; mainly for compatibility issues.
   Android: function() {
     return navigator.userAgent.match(/Android/i);
   },
@@ -169,7 +169,7 @@ var board = {
     this.preventRightClickMenu();
   },
   newBoard: function() {
-    // Create game board based off default setting in document ready function or based on values from board 
+    // Create game board based off default settings in document ready function or based on values from board 
     //size
     for (var i = 0; i < this.size; i++) {
       this.board.push([]);
@@ -290,7 +290,7 @@ var board = {
       });
   },
   showHint: function(row, col) {
-    // Show hints int the cleared squares about the surrounding maccas
+    // Show hints in the cleared squares about the surrounding maccas
     if (row < 0 || row >= this.size || col < 0 || col >= this.size) return;
     var $square = $(".board-square[data-row='" + row +
       "'][data-col='" + col + "']");
@@ -350,7 +350,7 @@ var game = {
     $("#play-again-btn").hide();
   },
   clickSquare: function() {
-    // Gets click event and 
+    // Gets click event and ...
     $(".board-square").mousedown(function() {
       var $square = $(this);
       if (!game.lose && !game.win) {
@@ -376,14 +376,14 @@ var game = {
       }
     });
   },
-  checkLoss: function() {
+  checkLoss: function() {//checks if user won
     if ($(".mine").length > 0) {
       game.lose = true;
       revealMines();
       updateStats();
     }
   },
-  checkWin: function() {
+  checkWin: function() {//checks if user lost
     var win = true;
     $(".board-square").each(function() {
       if (($(this).text() != "M" && !$(this).hasClass("revealed")) ||
@@ -392,11 +392,12 @@ var game = {
         return false;
       }
     });
-    if (win) {
+    if (win) {//executes if the user 
       game.win = true;
       updateStats();
     }
   },
+  //setting the screen when the game has finished
   gameoverScreen: function() {
     if (game.win) {
       $(".gameover-text h2").text("You win!");
@@ -408,11 +409,13 @@ var game = {
       game.playAgain();
     }
   },
+  //executes when the playagain button is clicked
   playAgain: function() {
     $("#play-again-btn").on("click", function() {
       game.init(game.size);
     });
   },
+  //function to control the timer
   startTimer: function() {
     game.timer = setTimeout(function() {
       if (!game.win && !game.lose) {
@@ -427,13 +430,14 @@ var game = {
 }; //end game
 
 var gameOptions = {
-  // Method that handles the top buttons and submenu of the. 
+  // Method that handles the top buttons and submenu of the game. 
   // 
   init: function() {
     this.boardSizeDropdown();
     this.chooseBoardSize();
     this.newGame();
   },
+  //executes when the boardsize button is clicked 
   boardSizeDropdown: function() {
     $("#board-size-btn").on("click", function() {
       $(".board-size-dropdown").toggleClass("show-dropdown");
@@ -474,6 +478,7 @@ var gameOptions = {
       $(".board-size-dropdown").removeClass("show-dropdown");
     });
   },
+  //executes when the new game button is clicked
   newGame: function() {
     $("#new-game-btn").on("click", function() {
       game.init(game.size);
