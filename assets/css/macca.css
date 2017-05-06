@@ -130,7 +130,7 @@ footer {
     padding: 4px;
     flex: 0 1 65%;
     margin: 5px;
-    border: 3px solid #eee;
+    margin-top: 20px;
     border-radius: 4px;
 }
 
@@ -234,6 +234,11 @@ a {
 
 a:hover {
     font-size: 120%;
+}
+
+.list {
+    width: 90%;
+    padding-left: 50px;
 }
 
 
