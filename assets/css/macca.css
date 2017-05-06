@@ -75,6 +75,10 @@ small {
   font-size: 10px;
 }
 
+li {
+	text-align: left;
+}
+
 .revealed {
   background: rgba(205, 220, 57, 0.59);
 }
