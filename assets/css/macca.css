@@ -1,78 +1,166 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
-/*Start*/
+
+
 /* Layout and Positioning */
 
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  min-height: 100%;
+    min-height: 100%;
 }
 
 body {
-  text-align: center;
+    text-align: center;
 }
 
 header {
-  margin-top: 20px;
-  margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 footer {
-  margin-top: 40px;
-  margin-bottom: 10px;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
+.f-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.f-container h3 {
+    flex: 0 0 100%;
+    margin: 0 auto 4px;
+}
+
+.f-items {
+    padding: 4px;
+    flex: 0 1 65%;
+    margin: 5px;
+    border: 3px solid #eee;
+    border-radius: 4px;
+}
 
 
 /* Font, Color, Styling */
 
 body {
-  background:linear-gradient(230deg,#a24bcf,#4b79cf,#4bc5cf);
-  background-size:300% 300%;
-  -webkit-animation:MoveBG 60s ease infinite;
-  -moz-animation:MoveBG 60s ease infinite;
-  -o-animation:MoveBG 60s ease infinite;
-  animation:MoveBG 60s ease infinite;
-  color: #e8e8e8;
+    background: linear-gradient(230deg, #a24bcf, #4b79cf, #4bc5cf);
+    background-size: 300% 300%;
+    -webkit-animation: MoveBG 60s ease infinite;
+    -moz-animation: MoveBG 60s ease infinite;
+    -o-animation: MoveBG 60s ease infinite;
+    animation: MoveBG 60s ease infinite;
+    color: #e8e8e8;
 }
 
 h1 {
-  font-size: 70px;
+    font-size: 70px;
 }
 
 h2 {
-  font-size: 40px;
+    font-size: 40px;
 }
 
 p {
-  color: #000;
+    color: #000;
 }
 
 small {
-  font-size: 10px;
+    font-size: 10px;
 }
 
 li {
@@ -80,304 +168,357 @@ li {
 }
 
 .revealed {
-  background: rgba(205, 220, 57, 0.59);
+    background: rgba(205, 220, 57, 0.59);
 }
 
 .flagged {
-  background-image: url(".././img/flag.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+    background-image: url(".././img/flag.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .mine {
-  background-image: url(".././img/macca.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: rgba(197, 197, 197, 0);
-  border: 2px solid rgba(197, 197, 197, 0)!important;
-  -webkit-animation:spin 4s linear infinite;
-  -moz-animation:spin 4s linear infinite;
-  animation:spin 4s linear infinite;
+    background-image: url(".././img/macca.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(197, 197, 197, 0);
+    border: 2px solid rgba(197, 197, 197, 0)!important;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    line-height: 1.25;
+    margin: 0 0 0.75em;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.17em;
+}
+
+h4 {
+    font-size: 1.12em;
+}
+
+h5 {
+    font-size: .83em;
+}
+
+h6 {
+    font-size: .75em;
+}
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+    -webkit-transition: -webkit-transform 1s, opacity 1s, background 1s, width 1s, height 1s, font-size 1s;
+}
+
+a:hover {
+    font-size: 120%;
 }
 
 
 /* Buttons and Links */
 
 button {
-  padding: 10px;
-  border: 0;
-  box-shadow: 2px 2px 2px #000;
-  vertical-align: middle;
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 20px;
-  outline: none;
-  cursor: pointer;
-  -webkit-transition: -webkit-transform 1s,opacity 1s,background 1s,width 1s,height 1s,font-size 1s;
+    padding: 10px;
+    border: 0;
+    box-shadow: 2px 2px 2px #000;
+    vertical-align: middle;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 20px;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: -webkit-transform 1s, opacity 1s, background 1s, width 1s, height 1s, font-size 1s;
+    -moz-transition: -moz-transform 1s, opacity 1s, background 1s, wigth 1s, height 1s, font-size 1s;
+    transition: transform 1s, opacity 1s, background 1s, width 1s, height 1s, font-size 1s;
 }
 
 button:hover {
-  background: #fff;
-  font-size: 18px;
+    background: #fff;
+    font-size: 18px;
 }
 
-button:active, button:focus {
-  outline: none;
+button:active,
+button:focus {
+    outline: none;
+    background: #fff;
+    font-size: 18px;
 }
-
 
 
 /* Game Options */
 
 .game-options-wrapper {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .game-option {
-  display: inline-block;
+    display: inline-block;
 }
 
 .game-option:first-child {
-  margin-right: 50px;
+    margin-right: 50px;
 }
-
 
 
 /* Game Info */
 
 .game-info-wrapper {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-.game-info-wrapper > * {
-  display: inline-block;
-  width: 100px;
-  text-align: left;
+.game-info-wrapper>* {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
 }
 
 .timer-wrapper {
-  margin-left: 50px;
+    margin-left: 50px;
 }
 
 .time {
-  float: right;
+    float: right;
 }
-
-
 
 
 /* Board Size Dropdown Menu */
 
 .board-size-wrapper {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .board-size-dropdown {
-  display: none;
-  z-index: 1;
-  position: absolute;
-  min-width: 160px;
-  background: #fff;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1;
+    position: absolute;
+    min-width: 160px;
+    background: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .board-size-dropdown div {
-  display: block;
-  padding: 10px;
-  cursor: pointer;
-  color: #000;
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    color: #000;
 }
 
 .board-size-dropdown div:hover {
-  background: #e8e8e8;
+    background: #e8e8e8;
 }
 
 .show-dropdown {
-  display: block;
+    display: block;
 }
 
 .current-board-size {
-  background: #e8e8e8;
+    background: #e8e8e8;
 }
-
 
 
 /* Board */
 
 .board-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .board-container {
-  display: inline-block;
-  padding: 8px;
-  background: #fff;
+    display: inline-block;
+    padding: 8px;
+    background: #fff;
 }
 
 .board {
-  margin: 0 auto;
-  background: #e8e8e8;
+    margin: 0 auto;
+    background: #e8e8e8;
 }
 
 .board td {
-  min-width: 30px;
-  min-height: 30px;
-  width: 30px;
-  height: 30px;
-  border: 2px solid rgb(197, 197, 197);
-  line-height: 28px;
+    min-width: 30px;
+    min-height: 30px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgb(197, 197, 197);
+    line-height: 28px;
 }
 
 .board p {
-  display: none;
+    display: none;
 }
+
 
 /* Gameover Screen */
 
 .gameover-container {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .gameover-text {
-  height: 50px;
-  margin-bottom: 10px;
+    height: 50px;
+    margin-bottom: 10px;
 }
 
 .play-again {
-  height: 55px;
+    height: 55px;
 }
 
 #play-again-btn {
-  display: none;
-}
-/*END*/
-
-a {
-	text-decoration: none;
-    color: whitesmoke;
-    -webkit-transition: -webkit-transform 1s,opacity 1s,background 1s,width 1s,height 1s,font-size 1s;
+    display: none;
 }
 
-a:hover{
-  font-size: 120%;
-}
-body, h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
-  line-height: 1.25;
-  margin: 0 0 0.75em;
-}
-h1 { font-size: 2em; }
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.17em; }
-h4 { font-size: 1.12em; }
-h5 { font-size: .83em; }
-h6 { font-size: .75em; }
-
-p#plays,#wins,#lost_games,#best_time,#games_played,#total_wins,#lifetime_best{
-	color:white;
-}
-#game-results {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-top: 10px;
-}
 
 /* hider class */
+
 .hidden {
-  display: none !important;
-  visibility: hidden;
+    display: none !important;
+    visibility: hidden;
 }
 
+
+/*Stats*/
+
 .scoreboard {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  margin-top: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .scoreboard h3 {
-  flex: 0 0 100%;
-  margin: 0 auto 4px;
+    flex: 0 0 100%;
+    margin: 0 auto 4px;
 }
 
 .scorecard {
-  padding: 4px;
-  flex: 0 1 15%;
-  margin: 5px;
-  border: 3px solid #eee;
-  border-radius: 4px;
+    padding: 4px;
+    flex: 0 1 15%;
+    margin: 5px;
+    border: 3px solid #eee;
+    border-radius: 4px;
 }
-.scorecard * { line-height: 90%; }
+
+.scorecard * {
+    line-height: 90%;
+}
+
 .scorecard label {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  display: block; 
-  margin: 2px 0 0;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    display: block;
+    margin: 2px 0 0;
 }
+
 .scorecard .value {
-  font-size: 3em;
-  text-align: center;
-  font-weight: bold;
-  margin-top: 0;
+    font-size: 3em;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0;
 }
 
-.f-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  margin-top: 10px;
+p#plays,
+#wins,
+#lost_games,
+#best_time,
+#games_played,
+#total_wins,
+#lifetime_best {
+    color: white;
 }
 
-.f-container h3 {
-  flex: 0 0 100%;
-  margin: 0 auto 4px;
+#game-results {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.f-items {
-  padding: 4px;
-  flex: 0 1 65%;
-  margin: 5px;
-  border: 3px solid #eee;
-  border-radius: 4px;
-}
 
 /* Keyframes for animations */
 
 @-webkit-keyframes MoveBG {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 16%}
-    100%{background-position:0% 84%}
+    0% {
+        background-position: 0% 84%
+    }
+    50% {
+        background-position: 100% 16%
+    }
+    100% {
+        background-position: 0% 84%
+    }
 }
 
 @-moz-keyframes MoveBG {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 16%}
-    100%{background-position:0% 84%}
+    0% {
+        background-position: 0% 84%
+    }
+    50% {
+        background-position: 100% 16%
+    }
+    100% {
+        background-position: 0% 84%
+    }
 }
+
 @-o-keyframes MoveBG {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 16%}
-    100%{background-position:0% 84%}
+    0% {
+        background-position: 0% 84%
+    }
+    50% {
+        background-position: 100% 16%
+    }
+    100% {
+        background-position: 0% 84%
+    }
 }
-@keyframes MoveBG { 
-    0%{background-position:0% 84%}
-    50%{background-position:100% 16%}
-    100%{background-position:0% 84%}
-}
-@-moz-keyframes spin { 
-  100% { -moz-transform: rotate(360deg); } 
-}
-@-webkit-keyframes spin { 
-  100% { -webkit-transform: rotate(360deg); } 
-}
-@keyframes spin { 
-  100% { 
-    -webkit-transform: rotate(360deg); 
-    transform:rotate(360deg); 
-    } 
-  }
 
+@keyframes MoveBG {
+    0% {
+        background-position: 0% 84%
+    }
+    50% {
+        background-position: 100% 16%
+    }
+    100% {
+        background-position: 0% 84%
+    }
+}
 
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
 
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

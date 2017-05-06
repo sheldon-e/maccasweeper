@@ -73,8 +73,8 @@ var updateStats = function() {
   // The number of games won, the number of games lost as well as the best time and saves
   // them in SESSION and LOCAL
   var playerStat, p, round_end = false;
-  lifetimeStats.games_played += 1; // increment total games count
-  currentStats.plays += 1; // increment current count
+  lifetimeStats.games_played += game.plays; // increment total games count
+  currentStats.plays = game.plays; // increment current count
   if (currentStats.plays == 0) {
     round_end = true;
   }
@@ -141,9 +141,9 @@ var isMobile = {
 
 var toggleHelp = function() {
   // Shows a modal with instructions 
-  alert('Soh yuh wan help?\nThe purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell. ' +
-    'Every non-macca cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca,' +
-    'you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win!' +
+  alert('Soh yuh wan help?\nThe purpose of the game is to open all the cells of the board which do not contain a macca. You lose if you set off a macca cell and trigger the wheelin makka. ' +
+    'Every non-macca (safe bush) cell you open will tell you the total number of maccas in the eight neighboring cells. Once you are sure that a cell contains a macca, ' +
+    'you can right-click to put a flag it on it as a reminder. Once you have flagged all the maccas and cleared all the cells you win! ' +
     'To start a new game (abandoning the current one), just click on the new game button.');
   return false;
 };
@@ -348,6 +348,7 @@ var game = {
   win: false,
   size: 10,
   time: 0,
+  plays: 0,
   timer: "default",
   init: function(size) {
     game.size = size;
@@ -359,7 +360,7 @@ var game = {
     game.clickSquare();
     clearInterval(game.timer);
     game.startTimer();
-    $(".gameover-container").toggleClass("hidden");
+    $(".gameover-container").addClass("hidden");
   },
   pageText: function() {
     // Update game text fields
@@ -399,6 +400,7 @@ var game = {
     if ($(".mine").length > 0) {
       game.lose = true;
       revealMines();
+        game.plays +=1;
       updateStats();
     }
   },
@@ -413,6 +415,7 @@ var game = {
     });
     if (win) {//executes if the user 
       game.win = true;
+        game.plays+=1;
       updateStats();
     }
   },
@@ -422,11 +425,13 @@ var game = {
       $(".gameover-container").toggleClass("hidden");
       $(".gameover-text h2").text("You win!");
       $("#play-again-btn").show();
+        game.plays +=1;
       game.playAgain();
     } else if (game.lose) {
       $(".gameover-container").toggleClass("hidden");
       $(".gameover-text h2").text("You lose!");
       $("#play-again-btn").show();
+        game.plays+=1;
       game.playAgain();
     }
   },
@@ -478,18 +483,23 @@ var gameOptions = {
       switch ($(this).text()) {
         case "Tiny":
           game.init(5);
+              game.plays+=1;
           break;
         case "Small":
           game.init(10);
+              game.plays+=1;
           break;
         case "Medium":
           game.init(15);
+              game.plays+=1;
           break;
         case "Large":
           game.init(23);
+              game.plays+=1;
           break;
         case "Enormous":
           game.init(35);
+              game.plays+=1;
           break;
         default:
           return;
