@@ -148,6 +148,25 @@ var toggleHelp = function() {
   return false;
 };
 
+var toggleJcanHelp = function() {
+  // Shows a modal with the Jamaican version of instructions 
+  alert('The short-er Jamaican version\n'+
+'Tanks fi play fi wi game Maccasweeper. Dis is a knockoff fi Minesweeper; only ting it bigga an betta. Yuh play it almoas di same way.'+
+'Yuh play gainst di computa and try no mek makka jook yuh. Awoah!\n\n'+
+//'How fi play:\n'+
+'Yuh put yuh mouse ova di cell weh yuh wan click. If yuh click a macca cell yuh lose. We have some wheelin macca fi yuh look pan when you lose. Yuh ago lose nuff so might as well. '+
+'When you clear out bush, an no click no macca we mek it green-ish. When yuh click pan a cell weh no ha no macca yuh si how much macca deh side a it. '+
+'We mean seh it tell yuh how much cell have macca outta di 8 weh deh round it – di one above, below, to the lef an to di right and di one dem weh deh slant way from it. ' +
+'Di corna wan dem no have 8 cell sida dem neida di wan dem a di side. \n\n' +
+'Di easiess way fi learn Maccasweeper is fi play it. Mek sure yuh can guess good else di fus cell yuh click cud be a macca. Yuh can choose di size board yuh wan fi play pon. '+
+'Di bigga di board di more macca yuh have fi fine. At di top to di leff, yuh can si how much macca yuh fi fine and pan di right yuh si how much time yuh tek fi win. '+
+'Di lass ting yuh need fi know is fi flag di cell dem wid d macca so yuh no tep pan dem, a mean click pan dem. When yuh think a cell have macca yuh haffi right-click pan it. '+
+'Put yuh mouse ova di macca cell an click pan it wid di right mouse button.' +
+
+'\n\nSo now weh yuh a wait pan? Duh road!');
+  return false;
+};
+
 // Setting up the game board
 var board = {
   board: [],
