@@ -2,7 +2,9 @@
 A real Jamaican minesweeper bootleg.
 
 Try it ovah yah soh: <link>https://sheldon-e.github.io/maccasweeper</link>
+
 Download it yah soh: <link>https://github.com/sheldon-e/maccasweeper/releases/latest</link>
+
 ### Latest Macca
  Whole heap a new tings get add:
 
