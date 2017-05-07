@@ -73,8 +73,8 @@ var updateStats = function () {
     // The number of games won, the number of games lost as well as the best time and saves
     // them in SESSION and LOCAL
     var playerStat, p, round_end = false;
-    lifetimeStats.games_played += game.plays; // increment total games count
-    currentStats.plays = game.plays; // increment current count
+    lifetimeStats.games_played += 1; // increment total games count
+    currentStats.plays +=1; // increment current count
     if (currentStats.plays == 0) {
         round_end = true;
     }
@@ -348,7 +348,6 @@ var game = {
     win: false,
     size: 10,
     time: 0,
-    plays: 0,
     timer: "default",
     init: function (size) {
         game.size = size;
@@ -400,7 +399,6 @@ var game = {
         if ($(".mine").length > 0) {
             game.lose = true;
             revealMines();
-            game.plays += 1;
             updateStats();
         }
     },
@@ -415,7 +413,6 @@ var game = {
         });
         if (win) { //executes if the user 
             game.win = true;
-            game.plays += 1;
             updateStats();
         }
     },
@@ -425,13 +422,11 @@ var game = {
             $(".gameover-container").toggleClass("hidden");
             $(".gameover-text h2").text("You win!");
             $("#play-again-btn").show();
-            game.plays += 1;
             game.playAgain();
         } else if (game.lose) {
             $(".gameover-container").toggleClass("hidden");
             $(".gameover-text h2").text("You lose!");
             $("#play-again-btn").show();
-            game.plays += 1;
             game.playAgain();
         }
     },
@@ -483,23 +478,18 @@ var gameOptions = {
             switch ($(this).text()) {
                 case "Tiny":
                     game.init(5);
-                    game.plays += 1;
                     break;
                 case "Small":
                     game.init(10);
-                    game.plays += 1;
                     break;
                 case "Medium":
                     game.init(15);
-                    game.plays += 1;
                     break;
                 case "Large":
                     game.init(23);
-                    game.plays += 1;
                     break;
                 case "Enormous":
                     game.init(35);
-                    game.plays += 1;
                     break;
                 default:
                     return;
